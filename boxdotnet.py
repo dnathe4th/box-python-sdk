@@ -141,7 +141,9 @@ class BoxDotNet(object):
         'logout'            :   'logout_ok',
         'create_folder'     :   'create_ok',
         'upload'            :   'upload_ok',
-        'delete'            :   's_delete_node'
+        'delete'            :   's_delete_node',
+        'move'              :   's_move_node',
+        'rename'            :   's_rename_node'
     }
 
     def __init__(self, browser="firefox"):
@@ -257,4 +259,12 @@ class BoxDotNet(object):
         rspXML = response.read()
 
         return XMLNode.parseXML(rspXML)
+
+    def download(self, file_id):
+        """
+        Download a file from box.net.
+        """
+
+        url = 'https://www.box.net/api/1.0/download/%s/%s' % (self._auth_token, file_id)
+        return urllib2.urlopen(url)
 
